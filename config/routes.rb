@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   root 'home#top'
   get 'home/about' => 'home#about'
 
+
+
   resources :users,only: [:show,:index,:edit,:update]
-  resources :books,only: [:index,:show,:create,:update,:edit,:destroy]
+  # 投稿されたBookに結びつくいいね、コメントのルーティングを設定
+  resources :books,only: [:index,:show,:create,:update,:edit,:destroy] do
+    resource :favorites, only: [:create, :destroy]
+  end
 
 end
